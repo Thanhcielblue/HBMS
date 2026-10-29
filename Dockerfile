@@ -1,10 +1,9 @@
-# Giai đoạn 1: Dùng Maven để build project ra file .war
+Dockerfile
 FROM maven:3.8.8-eclipse-temurin-17 AS build
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
-# Giai đoạn 2: Đưa file .war vào Tomcat để chạy
 FROM tomcat:9.0-jdk17
 RUN rm -rf /usr/local/tomcat/webapps/*
 COPY --from=build /app/target/HBMS-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
